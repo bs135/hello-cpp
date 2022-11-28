@@ -28,10 +28,11 @@ auto main() -> int
     strftime(buf, sizeof(buf), "%Y-%m-%d.%X", now);
     std::cout << buf << '\n';
 
-    std::cout << "Hello world! 123" << '\n';
+    std::cout << "Hello world!" << '\n';
     std::cout << "pi : " << j["pi"] << '\n';
     std::cout << "bar: " << j["bar"] << '\n';
-    std::cout << "=====" << std::flush;
+    std::cout << "=====\n"
+              << std::flush;
 
     std::this_thread::sleep_for(interval);
   }

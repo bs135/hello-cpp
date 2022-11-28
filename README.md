@@ -2,6 +2,12 @@
 
 This is the hello-cpp project.
 
+## install dependencies
+
+```bash
+sudo apt install -y build-essential libssl-dev cmake nlohmann-json-dev
+```
+
 ## Building and installing
 
 For first time
