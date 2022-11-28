@@ -23,17 +23,20 @@ auto main() -> int
     }
   )");
 
+  spdlog::set_level(spdlog::level::debug); // Set global log level to debug
+
   while (1)
   {
-    spdlog::info("Hello {0}! {1}", "world", 123);
+    spdlog::info("Hello {}! {}", "world", 123);
     float pi = j["pi"];
     bool bar = j["bar"];
     string foo = j["foo"];
-    spdlog::info("pi = {0}, bar = {1}, foo = {1}", pi, bar, foo);
+    spdlog::debug("pi = {0}, foo = {2}, bar = {1}", pi, bar, foo);
     // std::cout << "=====\n"
     //           << std::flush;
 
     std::this_thread::sleep_for(interval);
   }
+
   return 0;
 }
