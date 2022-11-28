@@ -1,0 +1,13 @@
+[Unit]
+Description=hello-cpp Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/root
+ExecStart=/usr/bin/hello-cpp
+Restart=always
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target
