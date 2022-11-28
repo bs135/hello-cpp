@@ -11,7 +11,7 @@ using json = nlohmann::json;
 
 auto main() -> int
 {
-  std::chrono::seconds interval(1);
+  std::chrono::seconds interval(3);
 
   json j = json::parse(R"(
     {
@@ -30,8 +30,8 @@ auto main() -> int
 
     std::cout << "Hello world! 123" << '\n';
     std::cout << "pi : " << j["pi"] << '\n';
-    std::cout << "bar: " << j["bar"] << '\n'
-              << '\n';
+    std::cout << "bar: " << j["bar"] << '\n';
+    std::cout << "=====" << '\n';
 
     std::this_thread::sleep_for(interval);
   }
