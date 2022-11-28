@@ -31,7 +31,7 @@ auto main() -> int
     std::cout << "Hello world! 123" << '\n';
     std::cout << "pi : " << j["pi"] << '\n';
     std::cout << "bar: " << j["bar"] << '\n';
-    std::cout << "=====" << '\n';
+    std::cout << "=====" << std::flush;
 
     std::this_thread::sleep_for(interval);
   }
