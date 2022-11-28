@@ -16,7 +16,7 @@ auto main() -> int
   json j = json::parse(R"(
     {
       "pi": 3.141,
-      "foo": true
+      "bar": true
     }
   )");
 
@@ -28,9 +28,9 @@ auto main() -> int
     strftime(buf, sizeof(buf), "%Y-%m-%d.%X", now);
     std::cout << buf << '\n';
 
-    std::cout << "Hello world!" << '\n';
+    std::cout << "Hello world! 123" << '\n';
     std::cout << "pi : " << j["pi"] << '\n';
-    std::cout << "foo: " << j["foo"] << '\n'
+    std::cout << "bar: " << j["bar"] << '\n'
               << '\n';
 
     std::this_thread::sleep_for(interval);

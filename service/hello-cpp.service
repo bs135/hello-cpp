@@ -1,5 +1,5 @@
 [Unit]
-Description=hello-cpp 123 Service
+Description=hello-cpp Service
 After=network.target
 
 [Service]
