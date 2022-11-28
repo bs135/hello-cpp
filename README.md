@@ -11,11 +11,28 @@ rm -rf build
 cmake -S . -B build
 ```
 
-Build binary
+build using cmake command
+
+```bash
+cmake --build build
+
+# run
+./build/hello-cpp
+
+# clean
+cmake --build build --target clean
 
 ```
+
+```bash
 cd build
 make
+
+# run
+./hello-cpp
+
+# clean
+make clean
 ```
 
 ## Licensing
