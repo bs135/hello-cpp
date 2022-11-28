@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
-#include <ctime>
 #include <unistd.h>
 #include <chrono>
 #include <thread>
 
 #include <nlohmann/json.hpp>
+#include <spdlog/spdlog.h>
+
+using namespace std;
 
 using json = nlohmann::json;
 
@@ -16,23 +18,20 @@ auto main() -> int
   json j = json::parse(R"(
     {
       "pi": 3.141,
-      "bar": true
+      "bar": true,
+      "foo": "test"
     }
   )");
 
   while (1)
   {
-    std::time_t t = std::time(0);
-    std::tm *now = std::localtime(&t);
-    char buf[80];
-    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", now);
-    std::cout << buf << '\n';
-
-    std::cout << "Hello world!" << '\n';
-    std::cout << "pi : " << j["pi"] << '\n';
-    std::cout << "bar: " << j["bar"] << '\n';
-    std::cout << "=====\n"
-              << std::flush;
+    spdlog::info("Hello {0}! {1}", "world", 123);
+    float pi = j["pi"];
+    bool bar = j["bar"];
+    string foo = j["foo"];
+    spdlog::info("pi = {0}, bar = {1}, foo = {1}", pi, bar, foo);
+    // std::cout << "=====\n"
+    //           << std::flush;
 
     std::this_thread::sleep_for(interval);
   }

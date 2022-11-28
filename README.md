@@ -5,7 +5,12 @@ This is the hello-cpp project.
 ## install dependencies
 
 ```bash
-sudo apt install -y build-essential libssl-dev cmake nlohmann-json-dev
+sudo apt install -y build-essential \
+    libssl-dev \
+    cmake \
+    nlohmann-json-dev \
+    libspdlog-dev
+
 ```
 
 ## Building and installing
