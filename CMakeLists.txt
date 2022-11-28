@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION 3.14)
 
 include(cmake/prelude.cmake)
 
+set(APP_NAME "hello-cpp")
+set(APP_NAME_EXE "hello-cpp_exe")
+
 project(
-  hello-cpp
+  APP_NAME
   VERSION 0.1.0
   DESCRIPTION "Short description"
   HOMEPAGE_URL "https://example.com/"

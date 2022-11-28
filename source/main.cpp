@@ -8,7 +8,7 @@ using json = nlohmann::json;
 
 auto main() -> int
 {
-  std::cout << "Hello world!" << '\n';
+  std::cout << "Hello world! 123" << '\n';
 
   json j = json::parse(R"(
     {

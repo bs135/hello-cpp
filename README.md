@@ -2,18 +2,20 @@
 
 This is the hello-cpp project.
 
-# Building and installing
+## Building and installing
 
-See the [BUILDING](BUILDING.md) document.
+For first time
 
-# Contributing
+```bash
+rm -rf build
+cmake -S . -B build
+```
 
-See the [CONTRIBUTING](CONTRIBUTING.md) document.
+Build binary
 
-# Licensing
+```
+cd build
+make
+```
 
-<!--
-Please go to https://choosealicense.com/licenses/ and choose a license that
-fits your needs. The recommended license for a project of this type is the
-GNU AGPLv3.
--->
+## Licensing

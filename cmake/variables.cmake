@@ -15,13 +15,15 @@ endif()
 # This is to provide a user experience similar to find_package when
 # add_subdirectory or FetchContent is used to consume this project
 set(warning_guard "")
+
 if(NOT PROJECT_IS_TOP_LEVEL)
   option(
-      hello-cpp_INCLUDES_WITH_SYSTEM
-      "Use SYSTEM modifier for hello-cpp's includes, disabling warnings"
-      ON
+    hello-cpp_INCLUDES_WITH_SYSTEM
+    "Use SYSTEM modifier for hello-cpp's includes, disabling warnings"
+    ON
   )
   mark_as_advanced(hello-cpp_INCLUDES_WITH_SYSTEM)
+
   if(hello-cpp_INCLUDES_WITH_SYSTEM)
     set(warning_guard SYSTEM)
   endif()
