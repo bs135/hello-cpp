@@ -1,12 +1,24 @@
+#include <fstream>
 #include <iostream>
 #include <string>
 
-#include "lib.hpp"
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 auto main() -> int
 {
-  auto const lib = library {};
-  auto const message = "Hello from " + lib.name + "!";
-  std::cout << message << '\n';
+  std::cout << "Hello world!" << '\n';
+
+  json j = json::parse(R"(
+    {
+      "pi": 3.141,
+      "happy": true
+    }
+  )");
+
+  std::cout << j["pi"] << '\n';
+  std::cout << j["happy"] << '\n';
+
   return 0;
 }
