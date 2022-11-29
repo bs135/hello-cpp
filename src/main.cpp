@@ -14,7 +14,14 @@ using json = nlohmann::json;
 
 auto main() -> int
 {
-  std::chrono::seconds interval(3);
+  dotenv::env.load_dotenv();
+
+  string redis_host = dotenv::env["REDIS_HOST"];
+  spdlog::info("REDIS_HOST: {}", redis_host);
+  string redis_port = dotenv::env["REDIS_PORT"];
+  spdlog::info("REDIS_HOST: {}", redis_port);
+
+  std::chrono::seconds interval(10);
 
   json j = json::parse(R"(
     {
