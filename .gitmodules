@@ -1,0 +1,3 @@
+[submodule "extlib/cpp-dotenv"]
+	path = extlib/cpp-dotenv
+	url = https://github.com/adeharo9/cpp-dotenv.git
