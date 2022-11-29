@@ -6,6 +6,7 @@
 
 #include <nlohmann/json.hpp>
 #include "spdlog/spdlog.h"
+#include "dotenv.h"
 
 using namespace std;
 

@@ -10,7 +10,7 @@ sudo apt install -y \
     libssl-dev \
     cmake \
     nlohmann-json3-dev \
-    libspdlog-dev
+    # libspdlog-dev
 
 ```
 

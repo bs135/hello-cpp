@@ -28,5 +28,5 @@ target_link_libraries(hello-cpp nlohmann_json::nlohmann_json)
 target_include_directories(hello-cpp PRIVATE src/lib/)
 
 # ---- vendor ----
-# add_subdirectory(./lib/cpp-dotenv)
-# target_link_libraries(hello-cpp cpp_dotenv)
+add_subdirectory(extlib/cpp-dotenv)
+target_link_libraries(hello-cpp cpp_dotenv)
