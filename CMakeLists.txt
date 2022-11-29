@@ -24,4 +24,5 @@ target_link_libraries(hello-cpp nlohmann_json::nlohmann_json)
 # add_subdirectory(./lib/spdlog)
 
 # set_property(TARGET spdlog PROPERTY IMPORTED_LOCATION ./lib/libspdlog.a)
-target_link_libraries(hello-cpp spdlog)
+# target_link_libraries(hello-cpp spdlog)
+target_include_directories(hello-cpp PRIVATE ./lib/)

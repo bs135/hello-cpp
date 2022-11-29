@@ -9,7 +9,7 @@ sudo apt install -y \
     build-essential \
     libssl-dev \
     cmake \
-    nlohmann-json-dev \
+    nlohmann-json3-dev \
     libspdlog-dev
 
 ```
