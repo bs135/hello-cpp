@@ -42,7 +42,7 @@ auto main() -> int
 
   while (1)
   {
-    spdlog::info("Hello {}! {}", "world", 123);
+    spdlog::info("Hello {}! {}", "world", 234);
     float pi = j["pi"];
     bool bar = j["bar"];
     string foo = j["foo"];
