@@ -22,7 +22,9 @@ mkdir build && cd build
 cmake ..
 
 # make
-make
+VERBOSE=1 make -j15
+# or
+
 
 # run
 ./hello-cpp

@@ -7,6 +7,7 @@
 #include <nlohmann/json.hpp>
 #include "spdlog/spdlog.h"
 #include "dotenv.h"
+#include "hello/hello.hh"
 
 using namespace std;
 
@@ -20,6 +21,12 @@ auto main() -> int
   spdlog::info("REDIS_HOST: {}", redis_host);
   string redis_port = dotenv::env["REDIS_PORT"];
   spdlog::info("REDIS_PORT: {}", redis_port);
+
+  Date *date = new Date(1, 2, 3);
+  int d = date->getDay();
+  int m = date->getMonth();
+  int y = date->getYear();
+  spdlog::info("getSum: {}-{}-{}", m, d, y);
 
   std::chrono::seconds interval(10);
 
