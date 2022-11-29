@@ -17,9 +17,11 @@ sudo apt install -y \
 ## Building and installing
 
 ```bash
-make build
-cd build
+# init cmake
+make build && cd build
 cmake ..
+
+# make
 make
 
 # run
