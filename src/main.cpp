@@ -19,7 +19,7 @@ auto main() -> int
   string redis_host = dotenv::env["REDIS_HOST"];
   spdlog::info("REDIS_HOST: {}", redis_host);
   string redis_port = dotenv::env["REDIS_PORT"];
-  spdlog::info("REDIS_HOST: {}", redis_port);
+  spdlog::info("REDIS_PORT: {}", redis_port);
 
   std::chrono::seconds interval(10);
 

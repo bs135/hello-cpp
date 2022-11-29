@@ -8,16 +8,13 @@ project(
   LANGUAGES CXX
 )
 
-# ---- import library ----
-find_package(nlohmann_json REQUIRED)
-
 # ---- executable ----
 add_executable(hello-cpp src/main.cpp)
-
 set_property(TARGET hello-cpp PROPERTY OUTPUT_NAME hello-cpp)
-
 target_compile_features(hello-cpp PRIVATE cxx_std_17)
 
+# ---- import library ----
+find_package(nlohmann_json REQUIRED)
 target_link_libraries(hello-cpp nlohmann_json::nlohmann_json)
 
 # ---- build library ----
