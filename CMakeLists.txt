@@ -18,6 +18,4 @@ set_property(TARGET hello-cpp PROPERTY OUTPUT_NAME hello-cpp)
 
 target_compile_features(hello-cpp PRIVATE cxx_std_17)
 
-target_link_libraries(hello-cpp nlohmann_json::nlohmann_json)
-
-target_link_libraries(hello-cpp spdlog)
+target_link_libraries(hello-cpp nlohmann_json::nlohmann_json spdlog::spdlog)
