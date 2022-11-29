@@ -15,11 +15,17 @@ using json = nlohmann::json;
 
 auto main() -> int
 {
-  dotenv::env.load_dotenv();
+  // dotenv::env.load_dotenv();
 
-  string redis_host = dotenv::env["REDIS_HOST"];
+  // string redis_host = dotenv::env["REDIS_HOST"];
+  // spdlog::info("REDIS_HOST: {}", redis_host);
+  // string redis_port = dotenv::env["REDIS_PORT"];
+  // spdlog::info("REDIS_PORT: {}", redis_port);
+
+  env_load(".", false);
+  char *redis_host = getenv("REDIS_HOST");
   spdlog::info("REDIS_HOST: {}", redis_host);
-  string redis_port = dotenv::env["REDIS_PORT"];
+  char *redis_port = getenv("REDIS_PORT");
   spdlog::info("REDIS_PORT: {}", redis_port);
 
   Date *date = new Date(1, 2, 3);

@@ -32,7 +32,10 @@ target_link_libraries(hello-cpp nlohmann_json::nlohmann_json)
 # target_link_libraries(hello-cpp spdlog)
 target_include_directories(hello-cpp PRIVATE src/utils/)
 target_include_directories(hello-cpp PRIVATE src/app/)
+target_include_directories(hello-cpp PRIVATE extlib/dotenv/src/)
 
 # ---- vendor ----
-add_subdirectory(extlib/cpp-dotenv)
-target_link_libraries(hello-cpp cpp_dotenv)
+# add_subdirectory(extlib/cpp-dotenv)
+# target_link_libraries(hello-cpp cpp_dotenv)
+add_subdirectory(extlib/dotenv)
+target_link_libraries(hello-cpp dotenv)
