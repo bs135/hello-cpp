@@ -3,6 +3,7 @@
     "files.associations": {},
     "cSpell.words": [
         "nlohmann",
-        "dotenv"
+        "dotenv",
+        "spdlog"
     ]
 }
