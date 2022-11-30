@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef HELLO_H
-#define HELLO_H
+#ifndef APP_HELLO_H
+#define APP_HELLO_H
 
 class Date
 {

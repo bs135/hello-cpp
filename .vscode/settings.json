@@ -2,8 +2,12 @@
     "C_Cpp.autoAddFileAssociations": false,
     "files.associations": {},
     "cSpell.words": [
-        "nlohmann",
         "dotenv",
+        "gpio",
+        "nlohmann",
+        "pmessage",
+        "psubscribe",
+        "redisbus",
         "spdlog"
     ]
 }

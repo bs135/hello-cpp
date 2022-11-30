@@ -8,6 +8,7 @@
 #include "spdlog/spdlog.h"
 #include "dotenv/dotenv.h"
 #include "hello/hello.hh"
+#include "redis-bus/redis-bus.hh"
 
 using namespace std;
 
@@ -15,13 +16,6 @@ using json = nlohmann::json;
 
 auto main() -> int
 {
-  // dotenv::env.load_dotenv();
-
-  // string redis_host = dotenv::env["REDIS_HOST"];
-  // spdlog::info("REDIS_HOST: {}", redis_host);
-  // string redis_port = dotenv::env["REDIS_PORT"];
-  // spdlog::info("REDIS_PORT: {}", redis_port);
-
   env_load(".", false);
   char *redis_host = getenv("REDIS_HOST");
   spdlog::info("REDIS_HOST: {}", redis_host);
@@ -45,6 +39,9 @@ auto main() -> int
   )");
 
   spdlog::set_level(spdlog::level::debug); // Set global log level to debug
+
+  auto redisbus = RedisBus();
+  redisbus.Connect();
 
   while (1)
   {
