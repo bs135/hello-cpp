@@ -5,19 +5,17 @@ project(
   VERSION 0.1.0
   DESCRIPTION "Short description"
   HOMEPAGE_URL "https://example.com/"
-  LANGUAGES CXX
+  LANGUAGES C CXX
 )
 
 # ---- executable ----
-file(GLOB_RECURSE helloworld_SRC
+file(GLOB_RECURSE ALL_SRC
   "src/**.cpp"
   "src/**.cc"
-  "src/**.hpp"
-  "src/**.h"
-  "src/**.hh"
+  "src/**.c"
 )
 
-add_executable(hello-cpp ${helloworld_SRC})
+add_executable(hello-cpp ${ALL_SRC})
 set_property(TARGET hello-cpp PROPERTY OUTPUT_NAME hello-cpp)
 target_compile_features(hello-cpp PRIVATE cxx_std_17)
 
@@ -32,10 +30,12 @@ target_link_libraries(hello-cpp nlohmann_json::nlohmann_json)
 # target_link_libraries(hello-cpp spdlog)
 target_include_directories(hello-cpp PRIVATE src/utils/)
 target_include_directories(hello-cpp PRIVATE src/app/)
-target_include_directories(hello-cpp PRIVATE extlib/dotenv/src/)
+target_include_directories(hello-cpp PRIVATE src/lib/)
+
+# target_include_directories(hello-cpp PRIVATE extlib/dotenv/src/)
 
 # ---- vendor ----
 # add_subdirectory(extlib/cpp-dotenv)
 # target_link_libraries(hello-cpp cpp_dotenv)
-add_subdirectory(extlib/dotenv)
-target_link_libraries(hello-cpp dotenv)
+# add_subdirectory(extlib/dotenv)
+# target_link_libraries(hello-cpp dotenv)
