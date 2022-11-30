@@ -29,8 +29,8 @@ target_link_libraries(${PN} nlohmann_json::nlohmann_json)
 # find_package(hiredis REQUIRED)
 target_link_libraries(${PN} hiredis)
 
-find_package(redis++ REQUIRED)
-target_link_libraries(${PN} redis++::redis++)
+# find_package(redis++ REQUIRED)
+target_link_libraries(${PN} redis++)
 
 # add_library(redis++::redis++ UNKNOWN IMPORTED)
 
