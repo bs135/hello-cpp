@@ -33,10 +33,10 @@ target_link_libraries(${PN} hiredis)
 target_link_libraries(${PN} redis++)
 
 # add_library(redis++::redis++ UNKNOWN IMPORTED)
-set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
-set(THREADS_PREFER_PTHREAD_FLAG TRUE)
-find_package(Threads REQUIRED)
-target_link_libraries(${PN} Threads::Threads)
+# set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+# set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+# find_package(Threads REQUIRED)
+# target_link_libraries(${PN} Threads::Threads)
 
 # ---- include ----
 # add_subdirectory(./lib/spdlog)
