@@ -29,10 +29,11 @@ target_link_libraries(${PN} nlohmann_json::nlohmann_json)
 # find_package(hiredis REQUIRED)
 target_link_libraries(${PN} hiredis)
 
-# find_package(redis++ REQUIRED)
-target_link_libraries(${PN} redis++)
+find_package(redis++ REQUIRED)
+target_link_libraries(${PN} redis++::redis++)
 
 # add_library(redis++::redis++ UNKNOWN IMPORTED)
+
 # set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 # set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 # find_package(Threads REQUIRED)
