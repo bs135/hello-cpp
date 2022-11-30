@@ -18,7 +18,7 @@ file(GLOB_RECURSE ALL_SRC
 )
 add_executable(${PN} ${ALL_SRC})
 set_property(TARGET ${PN} PROPERTY OUTPUT_NAME ${PN})
-target_compile_features(${PN} PRIVATE cxx_std_17)
+target_compile_features(${PN} PRIVATE cxx_std_17 c_std_17)
 
 # ---- import library ----
 find_package(nlohmann_json REQUIRED)
