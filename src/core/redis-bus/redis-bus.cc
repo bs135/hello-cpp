@@ -1,18 +1,19 @@
-#include <iostream>
 #include "redis-bus.hh"
-#include <sw/redis++/redis++.h>
 // #include <sw/redis++/async_redis++.h>
-
-using namespace sw::redis;
 
 /**
  * @brief Construct a new Redis Bus:: Redis Bus object
  *
  */
-RedisBus::RedisBus()
-{
-    RedisBus(REDIS_HOST_DEFAULT, REDIS_PORT_DEFAULT, REDIS_DB_DEFAULT, REDIS_PASS_DEFAULT);
-}
+// RedisBus::RedisBus()
+// {
+//     // RedisBus(REDIS_HOST_TEST, REDIS_PORT_DEFAULT, REDIS_DB_DEFAULT, REDIS_PASS_DEFAULT);
+//     //  _opts.host = REDIS_HOST_TEST;
+//     //  std::cout << "Test " << _opts.host << std::endl;
+//     //  _opts.port = REDIS_PORT_DEFAULT;
+//     //  _opts.db = REDIS_DB_DEFAULT;
+//     //  _opts.password = REDIS_PASS_DEFAULT;
+// }
 
 /**
  * @brief Construct a new Redis Bus:: Redis Bus object
@@ -22,12 +23,13 @@ RedisBus::RedisBus()
  * @param db
  * @param pass
  */
-RedisBus::RedisBus(std::string host, int port, int db, std::string pass)
+RedisBus::RedisBus(string host, int port, int db, string pass)
 {
-    _host = host;
-    _port = port;
-    _db = db;
-    _pass = pass;
+    _opts.host = host;
+    std::cout << "TestAAA " << _opts.host << std::endl;
+    _opts.port = port;
+    _opts.db = db;
+    _opts.password = pass;
 }
 
 /**
@@ -38,33 +40,56 @@ RedisBus::~RedisBus()
 {
 }
 
+/**
+ * @brief
+ *
+ */
 void RedisBus::Connect()
 {
-    ConnectionOptions opts;
-    opts.host = "192.168.1.24"; //_host;
-    opts.port = 6379;           //_port;
-    // opts.socket_timeout = std::chrono::milliseconds(100);
+    try
+    {
+        std::cout << "Test11 " << _opts.host << std::endl;
+        _redis_client = new Redis(_opts);
+        std::cout << "Test22 " << _opts.host << std::endl;
+        if (_redis_client != nullptr)
+            std::cout << "Connected to server " << _opts.host << std::endl;
+    }
+    catch (const Error &e)
+    {
+        std::cout << "Cannot connect to server " << std::endl;
+    }
+}
 
-    auto _redis = Redis(opts);
+/**
+ * @brief
+ *
+ * @param topic     Channel want to publish the the message
+ * @param message   The message want to publish to the topic
+ */
+void RedisBus::Publish(string topic, string message)
+{
+}
 
-    auto _sub = _redis.subscriber();
+/**
+ * @brief
+ *
+ * @param topic     Channel want to publish the the message
+ * @param handler   Callback function
+ */
+// template <typename MsgCb>
+void RedisBus::Subscribe(string topic)
+{
+    auto sub = _redis_client->subscriber();
+    sub.subscribe(topic);
+    std::cout << "Sub OK " << std::endl;
 
-    _sub.on_message([](std::string channel, std::string msg)
-                    { std::cout << channel << ": " << msg << std::endl; });
-
-    _sub.on_pmessage([](std::string pattern, std::string channel, std::string msg)
-                     { std::cout << pattern << ":" << channel << ": " << msg << std::endl; });
-
-    _sub.subscribe("test/hello");
-    _sub.subscribe({"test/adc2", "test/adc3"});
-
-    _sub.psubscribe("test/gpio/*");
-
+    sub.on_message([](std::string channel, std::string msg)
+                   { std::cout << channel << ": " << msg << std::endl; });
     while (true)
     {
         try
         {
-            _sub.consume();
+            sub.consume();
         }
         catch (const Error &err)
         {
@@ -73,6 +98,10 @@ void RedisBus::Connect()
     }
 }
 
+/**
+ * @brief
+ *
+ */
 void RedisBus::Loop()
 {
 }

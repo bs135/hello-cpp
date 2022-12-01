@@ -9,5 +9,6 @@
         "psubscribe",
         "redisbus",
         "spdlog"
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -16,17 +16,17 @@ using json = nlohmann::json;
 
 auto main() -> int
 {
-  env_load(".", false);
-  char *redis_host = getenv("REDIS_HOST");
-  spdlog::info("REDIS_HOST: {}", redis_host);
-  char *redis_port = getenv("REDIS_PORT");
-  spdlog::info("REDIS_PORT: {}", redis_port);
+  // env_load(".", false);
+  // char *redis_host = getenv("REDIS_HOST");
+  // spdlog::info("REDIS_HOST: {}", redis_host);
+  // char *redis_port = getenv("REDIS_PORT");
+  // spdlog::info("REDIS_PORT: {}", redis_port);
 
-  Date *date = new Date(1, 2, 3);
-  int d = date->getDay();
-  int m = date->getMonth();
-  int y = date->getYear();
-  spdlog::info("getSum: {}-{}-{}", m, d, y);
+  // Date *date = new Date(1, 2, 3);
+  // int d = date->getDay();
+  // int m = date->getMonth();
+  // int y = date->getYear();
+  // spdlog::info("getSum: {}-{}-{}", m, d, y);
 
   std::chrono::seconds interval(10);
 
@@ -42,7 +42,7 @@ auto main() -> int
 
   auto redisbus = RedisBus();
   redisbus.Connect();
-
+  redisbus.Subscribe("TestRedisBus");
   while (1)
   {
     spdlog::info("Hello {}! {}", "world", 234);
