@@ -36,6 +36,8 @@ target_link_libraries(${PN} redis++)
 # set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 # find_package(Threads REQUIRED)
 # target_link_libraries(${PN} Threads::Threads)
+find_package(Threads REQUIRED)
+target_link_libraries(${PN} Threads::Threads)
 
 # ---- include ----
 # add_subdirectory(./lib/spdlog)

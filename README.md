@@ -43,11 +43,21 @@ git checkout 8ac506e6eb0e5c5b2625785b67400bde705773a1
 mkdir build
 cd build
 
-REDIS_PLUS_PLUS_CXX_STANDARD=17 cmake ..
+# REDIS_PLUS_PLUS_CXX_STANDARD=17 cmake ..
+cmake -DREDIS_PLUS_PLUS_CXX_STANDARD=17 ..
 
 make
 sudo make install
 
+```
+
+### yocto custom
+
+add line below to file `/cloudbox/hung/var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-extended/redis-plus-plus/redis-plus-plus_1.2.2.bb`
+
+```bash
+EXTRA_OECMAKE += " -DREDIS_PLUS_PLUS_CXX_STANDARD=17 "
+# CMAKE_CXX_FLAGS += " -DREDIS_PLUS_PLUS_CXX_STANDARD=17 "
 ```
 
 ## Building and installing
