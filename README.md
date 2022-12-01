@@ -7,16 +7,13 @@ This is the hello-cpp project.
 ### build tools
 
 ```bash
-sudo apt install -y \
-    build-essential \
-    cmake
+sudo apt install -y build-essential cmake
 ```
 
 ### libraries dependencies
 
 ```bash
-sudo apt install -y \
-    nlohmann-json3-dev
+sudo apt install -y nlohmann-json3-dev
 ```
 
 ### hiredis
@@ -73,15 +70,31 @@ cd build
 cmake ..
 
 # make
-VERBOSE=1 make -j15
-# or
 make
+# or
+VERBOSE=1 make -j15
 
 # run
 ./hello-cpp
 
 # clean
 make clean
+```
+
+## doxygen
+
+install
+
+```bash
+
+sudo apt install -y doxygen
+```
+
+generate docs
+
+```bash
+doxygen Doxyfile
+
 ```
 
 ## Licensing

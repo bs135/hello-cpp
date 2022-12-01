@@ -3,6 +3,8 @@
     "files.associations": {},
     "cSpell.words": [
         "dotenv",
+        "Doxyfile",
+        "doxygen",
         "gpio",
         "hiredis",
         "nlohmann",

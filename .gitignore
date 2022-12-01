@@ -70,6 +70,10 @@ build/coverage/
 .history
 .ionide
 
+### doxygen ###
+docs/html/
+docs/latex/
+
 ### env ###
 .env
 .env.*
