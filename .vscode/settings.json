@@ -6,9 +6,11 @@
         "gpio",
         "hiredis",
         "nlohmann",
+        "openembedded",
         "pmessage",
         "psubscribe",
         "redisbus",
-        "spdlog"
+        "spdlog",
+        "yocto"
     ]
 }

@@ -21,6 +21,8 @@ sudo apt install -y \
 
 ### hiredis
 
+- Refs: `/cloudbox/hung/var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-extended/hiredis/hiredis_0.14.0.bb`
+
 ```bash
 git clone https://github.com/redis/hiredis.git
 cd hiredis
@@ -33,6 +35,8 @@ sudo make install
 ```
 
 ### redis++
+
+- Refs: `var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-extended/redis-plus-plus/redis-plus-plus_1.2.2.bb`
 
 ```bash
 git clone https://github.com/sewenew/redis-plus-plus.git
@@ -53,11 +57,10 @@ sudo make install
 
 ### yocto custom
 
-add line below to file `/cloudbox/hung/var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-extended/redis-plus-plus/redis-plus-plus_1.2.2.bb`
-
 ```bash
+# Add the following line to the file `redis-plus-plus_1.2.2.bb`
+
 EXTRA_OECMAKE += " -DREDIS_PLUS_PLUS_CXX_STANDARD=17 "
-# CMAKE_CXX_FLAGS += " -DREDIS_PLUS_PLUS_CXX_STANDARD=17 "
 ```
 
 ## Building and installing
