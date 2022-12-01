@@ -24,8 +24,6 @@ target_compile_features(${PN} PRIVATE cxx_std_17)
 find_package(nlohmann_json REQUIRED)
 target_link_libraries(${PN} nlohmann_json::nlohmann_json)
 
-# add_library(redis++::redis++ UNKNOWN IMPORTED)
-
 # find_package(hiredis REQUIRED)
 target_link_libraries(${PN} hiredis)
 
