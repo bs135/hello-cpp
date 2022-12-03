@@ -97,4 +97,9 @@ doxygen Doxyfile
 
 ```
 
+## References
+
+- [journalctl](https://www.freedesktop.org/software/systemd/man/journalctl.html)
+- [cpp styleguide](https://google.github.io/styleguide/cppguide.html)
+
 ## Licensing

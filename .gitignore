@@ -44,8 +44,11 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+
 build/hello-cpp
 build/coverage/
+build/log/
+build/logs/
 
 ### CMake Patch ###
 # External projects

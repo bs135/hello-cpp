@@ -5,10 +5,11 @@
 #include <thread>
 
 #include <nlohmann/json.hpp>
-#include "spdlog/spdlog.h"
-#include "dotenv/dotenv.h"
 #include "hello/hello.hh"
 #include "redis-bus/redis-bus.hh"
+
+#include "env.h"
+#include "log.h"
 
 using namespace std;
 
@@ -16,17 +17,31 @@ using json = nlohmann::json;
 
 auto main() -> int
 {
-  env_load(".", false);
-  char *redis_host = getenv("REDIS_HOST");
-  spdlog::info("REDIS_HOST: {}", redis_host);
-  char *redis_port = getenv("REDIS_PORT");
-  spdlog::info("REDIS_PORT: {}", redis_port);
+  log_init(LOG_DEBUG, "hello-cpp", "log");
+
+  log_trace("test log {}", "TRACE");
+  log_debug("test log {}", "DEBUG");
+  log_info("test log {}", "INFO");
+  log_warn("test log {}", "WARN");
+  log_error("test log {}", "ERROR");
+  log_fatal("test log {}", "FATAL");
+
+  env_init(".");
+  string redis_host = env_get("REDIS_HOST", "localhost");
+  log_info("REDIS_HOST: {}", redis_host);
+  int redis_port = env_get_int("REDIS_PORT", 1234);
+  log_info("REDIS_PORT: {}", redis_port);
+  int redis_db = env_get_int("REDIS_DB", 1);
+  log_info("REDIS_DB: {}", redis_db);
+
+  bool test_bool = env_get_bool("TEST_BOOL");
+  log_info("TEST_BOOL: {}", test_bool);
 
   Date *date = new Date(1, 2, 3);
   int d = date->getDay();
   int m = date->getMonth();
   int y = date->getYear();
-  spdlog::info("getSum: {}-{}-{}", m, d, y);
+  log_info("getSum: {}-{}-{}", m, d, y);
 
   std::chrono::seconds interval(10);
 
@@ -38,18 +53,16 @@ auto main() -> int
     }
   )");
 
-  spdlog::set_level(spdlog::level::debug); // Set global log level to debug
-
   auto redisbus = RedisBus();
   redisbus.Connect();
 
   while (1)
   {
-    spdlog::info("Hello {}! {}", "world", 234);
+    log_info("Hello {}! {}", "world", 234);
     float pi = j["pi"];
     bool bar = j["bar"];
     string foo = j["foo"];
-    spdlog::debug("pi = {0}, foo = {2}, bar = {1}", pi, bar, foo);
+    log_debug("pi = {0}, foo = {2}, bar = {1}", pi, bar, foo);
     // std::cout << "=====\n"
     //           << std::flush;
 
