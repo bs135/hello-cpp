@@ -78,13 +78,13 @@ inline void log_init(int level, std::string tag, std::string path)
     std::filesystem::path filename(tag + LOG_FILE_EXT);
     std::filesystem::path logfile = filepath / filename;
     auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logfile.u8string(), LOG_MAX_FILE_SIZE, LOG_MAX_FILE_COUNT);
-    file_sink->set_pattern("%Y-%m-%d %T.%e %-5l [%t] %n %@,%!(): %v");
+    file_sink->set_pattern("%Y-%m-%d %T.%e %-5l [%t] [%n] %@,%!(): %v");
     file_sink->set_level(spdlog::level::level_enum(level));
     sinks.push_back(file_sink);
 
     // Console sink
     auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-    console_sink->set_pattern("%Y-%m-%d %T.%e %^%-5l%$ [%t] %n %s:%#,%!(): %v");
+    console_sink->set_pattern("%Y-%m-%d %T.%e %^%-5l%$ [%t] [%n] %s:%#,%!(): %v");
     console_sink->set_level(spdlog::level::level_enum(level));
     sinks.push_back(console_sink);
 

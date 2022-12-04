@@ -53,4 +53,5 @@ target_include_directories(${PN} PRIVATE src/utils/)
 # target_link_libraries(${PN} dotenv)
 
 # ---- testing ----
-configure_file(.env.example .env COPYONLY)
+# configure_file(.env .env COPYONLY)
+# configure_file(.env.example .env COPYONLY)

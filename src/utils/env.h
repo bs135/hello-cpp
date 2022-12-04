@@ -3,9 +3,7 @@
 #ifndef UTILS_ENV_H
 #define UTILS_ENV_H
 
-#include <string>
-#include <iostream>
-#include <cstdlib>
+#include <stdlib.h>
 #include "dotenv/dotenv.h"
 #include "cvt.h"
 
@@ -16,7 +14,7 @@ extern "C"
 
     inline void env_init(const char *path)
     {
-        env_load(path, true);
+        env_load(path, false);
     }
 
     inline const char *env_get(const char *name, const char *def)

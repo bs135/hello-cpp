@@ -4,12 +4,8 @@
 #define UTILS_CVT_H
 
 #include <string>
-#include <iostream>
-#include <cstdlib>
-#include <sstream>
-#include <iomanip>
 #include <algorithm>
-#include <cctype>
+#include <vector>
 
 inline bool stob(std::string str)
 {

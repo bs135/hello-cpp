@@ -45,7 +45,7 @@ do_install() {
 	# install -m 0644 extlib/dotenv/libdotenv.so ${D}${libdir}
 
 	install -d ${D}/etc/hello-cpp
-	install -m 0644 ${S}/.env.example ${D}/etc/hello-cpp/.env
+	install -m 0644 ${S}/.env.example ${D}/etc/hello/env/hello-cpp.env
 
 	install -d ${D}${systemd_unitdir}/system
 	install -m 0644 ${S}/service/${SRVNAME} ${D}${systemd_unitdir}/system
