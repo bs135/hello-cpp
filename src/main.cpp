@@ -55,7 +55,7 @@ auto main() -> int
 
   auto redisbus = RedisBus();
   redisbus.Connect();
-
+  redisbus.Subscribe("TestRedisBus");
   while (1)
   {
     log_info("Hello {}! {}", "world", 234);
