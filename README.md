@@ -44,7 +44,6 @@ git checkout 8ac506e6eb0e5c5b2625785b67400bde705773a1
 mkdir build
 cd build
 
-# REDIS_PLUS_PLUS_CXX_STANDARD=17 cmake ..
 cmake -DREDIS_PLUS_PLUS_CXX_STANDARD=17 ..
 
 make
@@ -60,12 +59,12 @@ sudo make install
 git clone https://github.com/gabime/spdlog.git
 cd spdlog
 
-git checkout de0dbfa3596a18cd70a4619b6a9766847a941276
+git checkout f0cd9d15308007aa84068d0373b52bcaa67e3823
 
 mkdir build
 cd build
 
-cmake ..
+cmake -DSPDLOG_INSTALL=on -DSPDLOG_BUILD_SHARED=on -DSPDLOG_BUILD_TESTS=off -DSPDLOG_BUILD_BENCH=off -DSPDLOG_FMT_EXTERNAL=off ..
 
 make
 sudo make install
@@ -75,9 +74,16 @@ sudo make install
 ### yocto custom
 
 ```bash
-# Add the following line to the file `redis-plus-plus_1.2.2.bb`
+# file `redis-plus-plus_1.2.2.bb`
 
 EXTRA_OECMAKE += " -DREDIS_PLUS_PLUS_CXX_STANDARD=17 "
+
+# file `spdlog_1.8.2.bb`
+SRCREV = "f0cd9d15308007aa84068d0373b52bcaa67e3823"
+SRC_URI = "git://github.com/gabime/spdlog.git;protocol=https;branch=v1.x"
+EXTRA_OECMAKE += "-DSPDLOG_INSTALL=on -DSPDLOG_BUILD_SHARED=on -DSPDLOG_BUILD_TESTS=off -DSPDLOG_BUILD_BENCH=off -DSPDLOG_FMT_EXTERNAL=off"
+
+
 ```
 
 ## Building and installing
