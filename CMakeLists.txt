@@ -30,6 +30,9 @@ target_link_libraries(${PN} hiredis)
 # find_package(redis++ REQUIRED)
 target_link_libraries(${PN} redis++)
 
+find_package(spdlog REQUIRED)
+target_link_libraries(${PN} spdlog)
+
 # add_library(redis++::redis++ UNKNOWN IMPORTED)
 
 # ---- Fix ----
