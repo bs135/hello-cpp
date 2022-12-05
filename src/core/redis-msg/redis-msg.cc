@@ -4,7 +4,7 @@
  * @brief Construct a new Redis Bus Msg:: Redis Bus Msg object
  *
  */
-RedisBusMsg::RedisBusMsg()
+RedisMsg::RedisMsg()
 {
 }
 
@@ -12,6 +12,6 @@ RedisBusMsg::RedisBusMsg()
  * @brief Destroy the Redis Bus Msg:: Redis Bus Msg object
  *
  */
-RedisBusMsg::~RedisBusMsg()
+RedisMsg::~RedisMsg()
 {
 }

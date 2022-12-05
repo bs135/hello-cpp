@@ -10,7 +10,9 @@ SRC_URI = "git://github.com/bs135/hello-cpp.git;protocol=https;branch=${SRCBRANC
 
 S = "${WORKDIR}/git"
 
-DEPENDS += " nlohmann-json"
+DEPENDS += " nlohmann-json hiredis redis-plus-plus"
+# RDEPENDS_${PN} += "hiredis redis-plus-plus"
+
 TARGET_CC_ARCH += "${LDFLAGS}"
 # INSANE_SKIP_${PN} = "ldflags"
 # INSANE_SKIP_${PN}-dev = "ldflags"
@@ -18,6 +20,7 @@ TARGET_CC_ARCH += "${LDFLAGS}"
 # RDEPENDS_${PN} += " libdotenv.so()(64bit)"
 # PROVIDES = " libdotenv"
 # RPROVIDES_${PN} += " libdotenv.so()(64bit)"
+# FILES_${PN} += " ${libdir}/libabc.so"
 
 #Pack the path
 FILES_${PN} += "/home/root"
@@ -30,6 +33,7 @@ SYSTEMD_SERVICE_${PN} = "${SRVNAME}"
 inherit cmake systemd features_check
 
 # do_compile() {
+# 	LDFLAGS += -lpthread
 # 	oe_runmake
 # }
 
@@ -41,13 +45,16 @@ do_install() {
 	# install -m 0644 extlib/dotenv/libdotenv.so ${D}${libdir}
 
 	install -d ${D}/etc/hello-cpp
-	install -m 0644 ${S}/.env.example ${D}/etc/hello-cpp/.env
+	install -m 0644 ${S}/.env.example ${D}/etc/hello/env/hello-cpp.env
 
 	install -d ${D}${systemd_unitdir}/system
 	install -m 0644 ${S}/service/${SRVNAME} ${D}${systemd_unitdir}/system
 }
 
 # do_configure_prepend() {
-#	cd ${S}
+# 	cd ${S}
 # 	git submodule update --init --recursive
+# }
+
+# do_configure {
 # }

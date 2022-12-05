@@ -1,3 +1,5 @@
+#include "env.h"
+#include "log.h"
 #include "redis-bus.hh"
 // #include <sw/redis++/async_redis++.h>
 
@@ -5,15 +7,17 @@
  * @brief Construct a new Redis Bus:: Redis Bus object
  *
  */
-// RedisBus::RedisBus()
-// {
-//     // RedisBus(REDIS_HOST_TEST, REDIS_PORT_DEFAULT, REDIS_DB_DEFAULT, REDIS_PASS_DEFAULT);
-//     //  _opts.host = REDIS_HOST_TEST;
-//     //  std::cout << "Test " << _opts.host << std::endl;
-//     //  _opts.port = REDIS_PORT_DEFAULT;
-//     //  _opts.db = REDIS_DB_DEFAULT;
-//     //  _opts.password = REDIS_PASS_DEFAULT;
-// }
+RedisBus::RedisBus()
+{
+    // !IMPORTANT: make sure the env is loaded
+
+    _opts.host = env_get("REDIS_HOST", REDIS_HOST_DEFAULT);
+    _opts.port = env_get_int("REDIS_PORT", REDIS_PORT_DEFAULT);
+    _opts.db = env_get_int("REDIS_DB", REDIS_DB_DEFAULT);
+    _opts.password = env_get("REDIS_PASS", REDIS_PASS_DEFAULT);
+
+    // new (this) RedisBus(REDIS_HOST_DEFAULT, REDIS_PORT_DEFAULT, REDIS_DB_DEFAULT, REDIS_PASS_DEFAULT);
+}
 
 /**
  * @brief Construct a new Redis Bus:: Redis Bus object
@@ -26,7 +30,6 @@
 RedisBus::RedisBus(string host, int port, int db, string pass)
 {
     _opts.host = host;
-    std::cout << "TestAAA " << _opts.host << std::endl;
     _opts.port = port;
     _opts.db = db;
     _opts.password = pass;
@@ -48,15 +51,13 @@ void RedisBus::Connect()
 {
     try
     {
-        std::cout << "Test11 " << _opts.host << std::endl;
         _redis_client = new Redis(_opts);
-        std::cout << "Test22 " << _opts.host << std::endl;
         if (_redis_client != nullptr)
-            std::cout << "Connected to server " << _opts.host << std::endl;
+            log_debug("Connected to server {}", _opts.host);
     }
     catch (const Error &e)
     {
-        std::cout << "Cannot connect to server " << std::endl;
+        log_error("Cannot connect to server {}", _opts.host);
     }
 }
 
@@ -77,14 +78,14 @@ void RedisBus::Publish(string topic, string message)
  * @param handler   Callback function
  */
 // template <typename MsgCb>
-void RedisBus::Subscribe(string topic)
+void RedisBus::Subscribe(string topic, MsgHandler handler)
 {
     auto sub = _redis_client->subscriber();
     sub.subscribe(topic);
-    std::cout << "Sub OK " << std::endl;
+    log_info("Subscribe OK: {}", topic);
 
-    sub.on_message([](std::string channel, std::string msg)
-                   { std::cout << channel << ": " << msg << std::endl; });
+    sub.on_message(handler);
+
     while (true)
     {
         try

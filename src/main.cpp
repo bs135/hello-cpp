@@ -5,53 +5,34 @@
 #include <thread>
 
 #include <nlohmann/json.hpp>
-#include "spdlog/spdlog.h"
-#include "dotenv/dotenv.h"
-#include "hello/hello.hh"
 #include "redis-bus/redis-bus.hh"
 
-using namespace std;
+#include "app.h"
 
+using namespace std;
 using json = nlohmann::json;
+
+void test_handler(string topic, string msg)
+{
+  log_debug("message_on {}: {}", topic, msg);
+}
 
 auto main() -> int
 {
-  // env_load(".", false);
-  // char *redis_host = getenv("REDIS_HOST");
-  // spdlog::info("REDIS_HOST: {}", redis_host);
-  // char *redis_port = getenv("REDIS_PORT");
-  // spdlog::info("REDIS_PORT: {}", redis_port);
+  app_env_init();
+  app_log_init();
 
-  // Date *date = new Date(1, 2, 3);
-  // int d = date->getDay();
-  // int m = date->getMonth();
-  // int y = date->getYear();
-  // spdlog::info("getSum: {}-{}-{}", m, d, y);
-
-  std::chrono::seconds interval(10);
-
-  json j = json::parse(R"(
-    {
-      "pi": 3.141,
-      "bar": true,
-      "foo": "test"
-    }
-  )");
-
-  spdlog::set_level(spdlog::level::debug); // Set global log level to debug
-
+  /* test redis */
   auto redisbus = RedisBus();
   redisbus.Connect();
-  redisbus.Subscribe("TestRedisBus");
+  redisbus.Subscribe("test/redisbus", test_handler);
+
+  /* test loop */
+  std::chrono::seconds interval(10);
   while (1)
   {
-    spdlog::info("Hello {}! {}", "world", 234);
-    float pi = j["pi"];
-    bool bar = j["bar"];
-    string foo = j["foo"];
-    spdlog::debug("pi = {0}, foo = {2}, bar = {1}", pi, bar, foo);
-    // std::cout << "=====\n"
-    //           << std::flush;
+    log_info("Hello {}! {}", "world", 234);
+    // std::cout << std::flush;
 
     std::this_thread::sleep_for(interval);
   }

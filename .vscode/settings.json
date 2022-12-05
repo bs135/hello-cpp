@@ -3,12 +3,16 @@
     "files.associations": {},
     "cSpell.words": [
         "dotenv",
+        "Doxyfile",
+        "doxygen",
         "gpio",
+        "hiredis",
         "nlohmann",
+        "openembedded",
         "pmessage",
         "psubscribe",
         "redisbus",
-        "spdlog"
-    ],
-    "C_Cpp.errorSquiggles": "Disabled"
+        "spdlog",
+        "yocto"
+    ]
 }

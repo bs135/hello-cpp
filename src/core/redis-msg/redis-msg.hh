@@ -11,14 +11,14 @@ using json = nlohmann::json;
  * @brief
  *
  */
-class RedisBusMsg
+class RedisMsg
 {
 private:
     json payload;
 
 public:
-    RedisBusMsg();
-    ~RedisBusMsg();
-}
+    RedisMsg();
+    ~RedisMsg();
+};
 
 #endif
