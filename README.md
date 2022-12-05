@@ -18,7 +18,7 @@ sudo apt install -y nlohmann-json3-dev
 
 ### hiredis
 
-- Refs: `/cloudbox/hung/var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-extended/hiredis/hiredis_0.14.0.bb`
+- Refs: `var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-extended/hiredis/hiredis_0.14.0.bb`
 
 ```bash
 git clone https://github.com/redis/hiredis.git
@@ -46,6 +46,26 @@ cd build
 
 # REDIS_PLUS_PLUS_CXX_STANDARD=17 cmake ..
 cmake -DREDIS_PLUS_PLUS_CXX_STANDARD=17 ..
+
+make
+sudo make install
+
+```
+
+### spdlog
+
+- Refs: `var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-support/spdlog/spdlog_1.8.2.bb`
+
+```bash
+git clone https://github.com/gabime/spdlog.git
+cd spdlog
+
+git checkout de0dbfa3596a18cd70a4619b6a9766847a941276
+
+mkdir build
+cd build
+
+cmake ..
 
 make
 sudo make install
