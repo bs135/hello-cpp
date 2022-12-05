@@ -6,7 +6,7 @@
 
 #include <nlohmann/json.hpp>
 #include "redis-bus/redis-bus.hh"
-
+#include "redis-msg/redis-msg.hh"
 #include "app.h"
 
 using namespace std;
@@ -25,7 +25,8 @@ auto main() -> int
   /* test redis */
   auto redisbus = RedisBus();
   redisbus.Connect();
-  redisbus.Subscribe("test/redisbus", test_handler);
+
+  redisbus.Subscribe("test/redisbus", RedisMsg_Receivce_Handler);
 
   /* test loop */
   std::chrono::seconds interval(10);

@@ -14,5 +14,6 @@
         "redisbus",
         "spdlog",
         "yocto"
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "Disabled"
 }
