@@ -94,7 +94,7 @@ void RedisBus::Subscribe(string topic, MsgHandler handler)
         }
         catch (const Error &err)
         {
-            std::cout << "Error: " << err.what() << std::endl;
+            log_error("Redis consume error: {}", err.what());
         }
     }
 }
