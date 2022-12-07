@@ -18,7 +18,7 @@ sudo apt install -y nlohmann-json3-dev
 
 ### hiredis
 
-- Refs: `/cloudbox/hung/var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-extended/hiredis/hiredis_0.14.0.bb`
+- Refs: `sources/meta-openembedded/meta-oe/recipes-extended/hiredis/hiredis_0.14.0.bb`
 
 ```bash
 git clone https://github.com/redis/hiredis.git
@@ -33,7 +33,7 @@ sudo make install
 
 ### redis++
 
-- Refs: `var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-extended/redis-plus-plus/redis-plus-plus_1.2.2.bb`
+- Refs: `sources/meta-openembedded/meta-oe/recipes-extended/redis-plus-plus/redis-plus-plus_1.2.2.bb`
 
 ```bash
 git clone https://github.com/sewenew/redis-plus-plus.git
@@ -44,7 +44,6 @@ git checkout 8ac506e6eb0e5c5b2625785b67400bde705773a1
 mkdir build
 cd build
 
-# REDIS_PLUS_PLUS_CXX_STANDARD=17 cmake ..
 cmake -DREDIS_PLUS_PLUS_CXX_STANDARD=17 ..
 
 make
@@ -55,7 +54,7 @@ sudo make install
 ### yocto custom
 
 ```bash
-# Add the following line to the file `redis-plus-plus_1.2.2.bb`
+# file `redis-plus-plus_1.2.2.bb`
 
 EXTRA_OECMAKE += " -DREDIS_PLUS_PLUS_CXX_STANDARD=17 "
 ```

@@ -1,3 +1,14 @@
+/**
+ * @file log.h
+ * @author bs
+ * @brief
+ * @version 0.1
+ * @date 2022-12-07
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
 #pragma once
 
 #ifndef UTILS_LOG_H
@@ -74,13 +85,16 @@ inline void log_init(int level, std::string tag, std::string path)
     std::vector<spdlog::sink_ptr> sinks;
 
     // File sink
-    std::filesystem::path filepath(path);
-    std::filesystem::path filename(tag + LOG_FILE_EXT);
-    std::filesystem::path logfile = filepath / filename;
-    auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logfile.u8string(), LOG_MAX_FILE_SIZE, LOG_MAX_FILE_COUNT);
-    file_sink->set_pattern("%Y-%m-%d %T.%e %-5l [%t] [%n] %@,%!(): %v");
-    file_sink->set_level(spdlog::level::level_enum(level));
-    sinks.push_back(file_sink);
+    if (!path.empty())
+    {
+        std::filesystem::path filepath(path);
+        std::filesystem::path filename(tag + LOG_FILE_EXT);
+        std::filesystem::path logfile = filepath / filename;
+        auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logfile.u8string(), LOG_MAX_FILE_SIZE, LOG_MAX_FILE_COUNT);
+        file_sink->set_pattern("%Y-%m-%d %T.%e %-5l [%t] [%n] %@,%!(): %v");
+        file_sink->set_level(spdlog::level::level_enum(level));
+        sinks.push_back(file_sink);
+    }
 
     // Console sink
     auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
@@ -88,7 +102,7 @@ inline void log_init(int level, std::string tag, std::string path)
     console_sink->set_level(spdlog::level::level_enum(level));
     sinks.push_back(console_sink);
 
-    // merge all sinks logger
+    // merge all sinks
     auto logger = std::make_shared<spdlog::logger>(tag, begin(sinks), end(sinks));
     logger->set_level(spdlog::level::level_enum(level));
     spdlog::register_logger(logger);
