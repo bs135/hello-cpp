@@ -8,7 +8,7 @@
 #include "redis/redis.hh"
 #include "redis-msg/redis-msg.hh"
 #include "redis/redis.hh"
-#include "uid.h"
+#include "utils.h"
 #include "app.hh"
 
 using namespace std;
