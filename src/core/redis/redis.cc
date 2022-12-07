@@ -9,33 +9,93 @@
  *
  */
 
+#include <string>
+#include <mutex>
 #include "env.h"
 #include "log.h"
 #include "redis.hh"
 
+static mutex msgMux;
 Redis *redis_client;
 map<string, RedisMsgHandler> handlers;
 
+/**
+ * @brief Internal method to handle Redis messages
+ *
+ * @param topic
+ * @param payload
+ */
 void _message_handler(string topic, string payload)
 {
-    log_debug("on_message [{}]: {}", topic, payload);
-    if (handlers.count(topic) > 0)
+    msgMux.lock();
+    try
     {
-        thread t(handlers[topic], payload);
-        t.detach();
+        if (handlers.count(topic) > 0)
+        {
+            thread t(handlers[topic], topic, payload);
+            t.detach();
+        }
+        {
+            log_debug("No handler for [{}]: {}", topic, payload);
+        }
     }
+    catch (const exception &e)
+    {
+        log_error("Message header error: {}", e.what());
+    }
+    msgMux.unlock();
 }
 
+void _pattern_message_handler(string pattern, string topic, string payload)
+{
+    msgMux.lock();
+    try
+    {
+        if (handlers.count(pattern) > 0)
+        {
+            thread t(handlers[pattern], topic, payload);
+            t.detach();
+        }
+        else
+        {
+            log_warn("No handler for [{}][{}]: {}", pattern, topic, payload);
+        }
+    }
+    catch (const exception &e)
+    {
+        log_error("PMessage header error: {}", e.what());
+    }
+    msgMux.unlock();
+}
+
+/**
+ * @brief Publish a message to Redis topic
+ *
+ * @param topic
+ * @param payload
+ */
 void Redis_Publish(string topic, string payload)
 {
     auto r = redis_client->publish(topic, payload);
 }
 
+/**
+ * @brief Subscribe to a Redis topic. Actually, this method will add the topic to list first and subscribe in StartLoop() later.
+ *
+ * @param topic
+ * @param handler
+ */
 void Redis_Subscribe(string topic, RedisMsgHandler handler)
 {
     handlers[topic] = handler;
 }
 
+/**
+ * @brief Initialize and Connect to Redis server.
+ *
+ * @return true
+ * @return false
+ */
 bool Redis_Init()
 {
     // !IMPORTANT: make sure the env is loaded before getting
@@ -66,15 +126,28 @@ bool Redis_Init()
     }
 }
 
-void Redis_StartLoop()
+/**
+ * @brief Start and loop to watching for consuming data from Redis
+ *
+ */
+void _start_loop()
 {
     auto _subscriber = redis_client->subscriber();
     _subscriber.on_message(_message_handler);
+    _subscriber.on_pmessage(_pattern_message_handler);
 
     for (const auto &[topic, handler] : handlers)
     {
-        _subscriber.subscribe(topic);
-        log_info("Subscribe OK: {}", topic);
+        if (topic.find('*') == std::string::npos)
+        {
+            _subscriber.subscribe(topic);
+            log_info("Subscribe OK: {}", topic);
+        }
+        else
+        {
+            _subscriber.psubscribe(topic);
+            log_info("PSubscribe OK: {}", topic);
+        }
     }
 
     while (true)
@@ -90,13 +163,33 @@ void Redis_StartLoop()
     }
 }
 
+/**
+ * @brief Start Redis client process. This method must be called after Init() and Subscribe()
+ *
+ */
 void Redis_Start()
 {
-    thread redis_worker([]()
-                        { Redis_StartLoop(); });
-    redis_worker.detach();
+    try
+    {
+        thread redis_worker(
+            []()
+            {
+                _start_loop();
+                log_warn("Redis worker is stoped!");
+            });
+        redis_worker.detach();
+    }
+    catch (const exception &e)
+    {
+        log_error("Redis start failed: {}", e.what());
+    }
 }
 
+/**
+ * @brief Return Redis Client instance for other usages
+ *
+ * @return Redis*
+ */
 Redis *Redis_Client()
 {
     return redis_client;

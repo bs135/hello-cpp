@@ -11,14 +11,19 @@
 using namespace std;
 using json = nlohmann::json;
 
-void test_handler1(string msg)
+void test_handler1(string topic, string msg)
 {
-  log_debug("message [1]: {}", msg);
+  log_debug("message [{}]: {}", topic, msg);
 }
 
-void test_handler2(string msg)
+void test_handler2(string topic, string msg)
 {
-  log_debug("message [2]: {}", msg);
+  log_debug("message [{}]: {}", topic, msg);
+}
+
+void test_wildcard_handler(string topic, string msg)
+{
+  log_debug("message [{}]: {}", topic, msg);
 }
 
 auto main() -> int
@@ -30,6 +35,7 @@ auto main() -> int
   Redis_Init();
   Redis_Subscribe("test/redisbus1", test_handler1);
   Redis_Subscribe("test/redisbus2", test_handler2);
+  Redis_Subscribe("*/data", test_wildcard_handler);
   Redis_Start();
 
   Redis_Client()

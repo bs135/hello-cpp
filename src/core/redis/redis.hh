@@ -29,7 +29,7 @@ using namespace std;
 #define REDIS_DB_DEFAULT 0
 #define REDIS_PASS_DEFAULT ""
 
-using RedisMsgHandler = function<void(string payload)>;
+using RedisMsgHandler = function<void(string topic, string payload)>;
 
 using RedisPMsgHandler = function<void(string pattern,
                                        string topic,
@@ -39,8 +39,8 @@ void Redis_Publish(string topic, string payload);
 void Redis_Subscribe(string topic, RedisMsgHandler handler);
 
 bool Redis_Init();
-void Redis_StartLoop();
-Redis *Redis_Client();
 void Redis_Start();
+
+Redis *Redis_Client();
 
 #endif
