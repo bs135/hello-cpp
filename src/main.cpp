@@ -7,6 +7,7 @@
 #include <nlohmann/json.hpp>
 #include "redis-bus/redis-bus.hh"
 #include "redis-msg/redis-msg.hh"
+#include "uid.h"
 #include "app.h"
 
 using namespace std;
@@ -29,13 +30,14 @@ auto main() -> int
   redisbus.Subscribe("test/redisbus", RedisMsg_Receivce_Handler);
 
   /* test loop */
-  std::chrono::seconds interval(10);
+  std::chrono::seconds interval(1000);
   while (1)
   {
     log_info("Hello {}! {}", "world", 234);
     // std::cout << std::flush;
-
-    std::this_thread::sleep_for(interval);
+    auto uidRandomString = uid_gen();
+    log_info("UID = : {}", uidRandomString);
+    std::this_thread::sleep_for(3s);
   }
 
   return 0;
