@@ -5,16 +5,20 @@
 #include <thread>
 
 #include <nlohmann/json.hpp>
-#include "redis-bus/redis-bus.hh"
-
-#include "app.h"
+#include "redis/redis.hh"
+#include "app.hh"
 
 using namespace std;
 using json = nlohmann::json;
 
-void test_handler(string topic, string msg)
+void test_handler1(string msg)
 {
-  log_debug("message_on {}: {}", topic, msg);
+  log_debug("message [1]: {}", msg);
+}
+
+void test_handler2(string msg)
+{
+  log_debug("message [2]: {}", msg);
 }
 
 auto main() -> int
@@ -23,18 +27,19 @@ auto main() -> int
   app_log_init();
 
   /* test redis */
-  auto redisbus = RedisBus();
-  redisbus.Connect();
-  redisbus.Subscribe("test/redisbus", test_handler);
+  Redis_Init();
+  Redis_Subscribe("test/redisbus1", test_handler1);
+  Redis_Subscribe("test/redisbus2", test_handler2);
+  Redis_Start();
 
-  /* test loop */
-  std::chrono::seconds interval(10);
-  while (1)
+  Redis_Client()
+      ->command("set", "abc", 321);
+
+  while (true)
   {
     log_info("Hello {}! {}", "world", 234);
-    // std::cout << std::flush;
-
-    std::this_thread::sleep_for(interval);
+    Redis_Publish("test/redisbus3", "123");
+    std::this_thread::sleep_for(3s);
   }
 
   return 0;

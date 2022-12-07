@@ -18,7 +18,7 @@ sudo apt install -y nlohmann-json3-dev
 
 ### hiredis
 
-- Refs: `var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-extended/hiredis/hiredis_0.14.0.bb`
+- Refs: `sources/meta-openembedded/meta-oe/recipes-extended/hiredis/hiredis_0.14.0.bb`
 
 ```bash
 git clone https://github.com/redis/hiredis.git
@@ -33,7 +33,7 @@ sudo make install
 
 ### redis++
 
-- Refs: `var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-extended/redis-plus-plus/redis-plus-plus_1.2.2.bb`
+- Refs: `sources/meta-openembedded/meta-oe/recipes-extended/redis-plus-plus/redis-plus-plus_1.2.2.bb`
 
 ```bash
 git clone https://github.com/sewenew/redis-plus-plus.git
@@ -53,7 +53,7 @@ sudo make install
 
 ### spdlog
 
-- Refs: `var-fslc-yocto/sources/meta-openembedded/meta-oe/recipes-support/spdlog/spdlog_1.8.2.bb`
+- Refs: `sources/meta-openembedded/meta-oe/recipes-support/spdlog/spdlog_1.8.2.bb`
 
 ```bash
 git clone https://github.com/gabime/spdlog.git
