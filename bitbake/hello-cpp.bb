@@ -5,12 +5,14 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 SRCREV = "${AUTOREV}"
 SRCBRANCH ?= "master"
+# SRCBRANCH ?= "bs-dev-2"
 SRVNAME = "hello-cpp.service"
 SRC_URI = "git://github.com/bs135/hello-cpp.git;protocol=https;branch=${SRCBRANCH}"
 
 S = "${WORKDIR}/git"
 
 DEPENDS += " nlohmann-json hiredis redis-plus-plus"
+# DEPENDS += " spdlog"
 # RDEPENDS_${PN} += "hiredis redis-plus-plus"
 
 TARGET_CC_ARCH += "${LDFLAGS}"

@@ -44,11 +44,12 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
-
-build/hello-cpp
-build/coverage/
-build/log/
-build/logs/
+build/
+.tmp/
+.test/
+.data/
+.config/
+.env/
 
 ### CMake Patch ###
 # External projects
