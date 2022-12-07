@@ -5,37 +5,55 @@
 #include <thread>
 
 #include <nlohmann/json.hpp>
-#include "redis-bus/redis-bus.hh"
-
-#include "app.h"
+#include "redis/redis.hh"
+#include "app.hh"
 
 using namespace std;
 using json = nlohmann::json;
 
-void test_handler(string topic, string msg)
+void test_handler1(string topic, string msg)
 {
-  log_debug("message_on {}: {}", topic, msg);
+    log_debug("message [{}]: {}", topic, msg);
+}
+
+void test_handler2(string topic, string msg)
+{
+    log_debug("message [{}]: {}", topic, msg);
+}
+
+void test_wildcard_handler(string topic, string msg)
+{
+    log_debug("message [{}]: {}", topic, msg);
 }
 
 auto main() -> int
 {
-  app_env_init();
-  app_log_init();
+    app_env_init();
+    app_log_init();
 
-  /* test redis */
-  auto redisbus = RedisBus();
-  redisbus.Connect();
-  redisbus.Subscribe("test/redisbus", test_handler);
+    /* test redis */
+    auto ok = Redis_Init();
+    if (ok)
+    {
+        Redis_Subscribe("test/redisbus1", test_handler1);
+        Redis_Subscribe("test/redisbus2", test_handler2);
+        Redis_Subscribe("*/data", test_wildcard_handler);
+        Redis_Start();
 
-  /* test loop */
-  std::chrono::seconds interval(10);
-  while (1)
-  {
-    log_info("Hello {}! {}", "world", 234);
-    // std::cout << std::flush;
+        Redis_Client()
+            ->command("set", "abc", 321);
 
-    std::this_thread::sleep_for(interval);
-  }
+        while (true)
+        {
+            log_info("Hello {}! {}", "world", 234);
+            Redis_Publish("test/redisbus3", "123");
+            std::this_thread::sleep_for(3s);
+        }
+    }
+    else
+    {
+        exit(EXIT_FAILURE);
+    }
 
-  return 0;
+    return 0;
 }
