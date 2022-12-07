@@ -11,13 +11,14 @@
 
 #pragma once
 
-#ifndef APP_APP_HH
-#define APP_APP_HH
+#ifndef APP_APP_H
+#define APP_APP_H
 
 #include <climits>
 #include <string>
 #include "env.h"
 #include "log.h"
+#include "app_test.hh"
 
 #define APP_NAME "hello-cpp"
 
@@ -56,6 +57,32 @@ inline void app_log_init()
     }
     // std::cout << "app log path: " << path << std::endl;
     log_init(level, APP_NAME, path);
+}
+
+inline void app_redis_init()
+{
+    auto ok = Redis_Init();
+    if (ok)
+    {
+        Redis_Subscribe("test/redisbus1", test_handler1);
+        Redis_Subscribe("test/redisbus2", test_handler2);
+        Redis_Subscribe("*/data", test_wildcard_handler);
+        Redis_Start();
+
+        Redis_Client()
+            ->command("set", "abc", 321);
+
+        while (true)
+        {
+            log_info("Hello {}! {}", "world", 234);
+            Redis_Publish("test/redisbus3", "123");
+            std::this_thread::sleep_for(3s);
+        }
+    }
+    else
+    {
+        exit(EXIT_FAILURE);
+    }
 }
 
 #endif

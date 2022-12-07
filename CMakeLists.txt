@@ -30,7 +30,7 @@ target_link_libraries(${PN} hiredis)
 # find_package(redis++ REQUIRED)
 target_link_libraries(${PN} redis++)
 
-# find_package(redis++ REQUIRED)
+# find_package(uuid REQUIRED)
 target_link_libraries(${PN} uuid)
 
 # add_library(redis++::redis++ UNKNOWN IMPORTED)
